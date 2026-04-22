@@ -59,6 +59,52 @@
 		</section>
 	</main>
 
+	<section id="editModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/70 p-4">
+		<div class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-slate-200">
+			<div class="mb-4 flex items-center justify-between">
+				<h3 class="text-xl font-extrabold text-slate-800">Editar miembro</h3>
+				<button id="closeEditModalButton" type="button" class="rounded-lg border border-slate-300 px-3 py-1 text-sm font-semibold text-slate-700 hover:bg-slate-50">Cerrar</button>
+			</div>
+			<form id="editMemberForm" class="space-y-4">
+				<div>
+					<label for="editNombre" class="mb-2 block text-sm font-semibold text-slate-700">Nombre completo</label>
+					<input id="editNombre" name="nombre" type="text" required class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 outline-none transition duration-200 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100">
+				</div>
+				<div>
+					<label for="editCorreo" class="mb-2 block text-sm font-semibold text-slate-700">Correo electronico</label>
+					<input id="editCorreo" name="correo" type="email" required class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 outline-none transition duration-200 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100">
+				</div>
+				<div>
+					<label for="editRol" class="mb-2 block text-sm font-semibold text-slate-700">Rol</label>
+					<select id="editRol" name="rol" required class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 outline-none transition duration-200 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100">
+						<option value="" selected disabled>Selecciona un rol</option>
+						<option value="Lider de equipo">Lider de equipo</option>
+						<option value="Participante">Participante</option>
+						<option value="Mentor">Mentor</option>
+						<option value="Coordinador">Coordinador</option>
+						<option value="Colaborador">Colaborador</option>
+					</select>
+				</div>
+				<div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+					<button type="submit" class="inline-flex w-full items-center justify-center rounded-xl bg-cyan-600 px-4 py-3 font-extrabold text-white transition hover:bg-cyan-700">Guardar cambios</button>
+					<button id="cancelEditModalButton" type="button" class="inline-flex w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-bold text-slate-700 transition hover:bg-slate-50">Cancelar</button>
+				</div>
+				<p id="editFormMessage" class="text-sm"></p>
+			</form>
+		</div>
+	</section>
+
+	<section id="deleteModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/70 p-4">
+		<div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-slate-200">
+			<h3 class="text-xl font-extrabold text-slate-800">Eliminar miembro</h3>
+			<p id="deleteModalText" class="mt-2 text-sm text-slate-600">Confirma la eliminacion del miembro.</p>
+			<div class="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2">
+				<button id="confirmDeleteButton" type="button" class="inline-flex w-full items-center justify-center rounded-xl bg-rose-600 px-4 py-3 font-extrabold text-white transition hover:bg-rose-700">Eliminar</button>
+				<button id="cancelDeleteButton" type="button" class="inline-flex w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-3 font-bold text-slate-700 transition hover:bg-slate-50">Cancelar</button>
+			</div>
+		</div>
+	</section>
+
 	<script src="./src/app.js"></script>
 </body>
 </html>
