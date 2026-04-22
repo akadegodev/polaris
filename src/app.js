@@ -3,6 +3,16 @@ const membersList = document.getElementById("membersList");
 const formMessage = document.getElementById("formMessage");
 const refreshButton = document.getElementById("refreshButton");
 
+const isLocalHost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+const API_BASE_URL =
+  window.location.protocol === "file:" || (isLocalHost && window.location.port !== "3000")
+    ? "http://localhost:3000"
+    : window.location.origin;
+
+function apiUrl(path) {
+  return `${API_BASE_URL}${path}`;
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -57,7 +67,7 @@ function renderMembers(members) {
 
 async function loadMembers() {
   try {
-    const response = await fetch("/api/members");
+    const response = await fetch(apiUrl("/api/members"));
     if (!response.ok) {
       throw new Error("No se pudieron cargar los miembros");
     }
@@ -65,7 +75,7 @@ async function loadMembers() {
     renderMembers(members);
   } catch (error) {
     membersList.innerHTML =
-      '<p class="rounded-lg border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">Error al cargar miembros.</p>';
+      '<p class="rounded-lg border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">Error al cargar miembros. Verifica que el backend este ejecutandose en http://localhost:3000.</p>';
   }
 }
 
@@ -85,7 +95,7 @@ memberForm.addEventListener("submit", async (event) => {
   }
 
   try {
-    const response = await fetch("/api/members", {
+    const response = await fetch(apiUrl("/api/members"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -103,7 +113,10 @@ memberForm.addEventListener("submit", async (event) => {
     memberForm.reset();
     await loadMembers();
   } catch (error) {
-    showMessage(error.message || "Error al registrar miembro.", true);
+    showMessage(
+      error.message || "Error de red al registrar miembro. Verifica el backend en http://localhost:3000.",
+      true
+    );
   }
 });
 
